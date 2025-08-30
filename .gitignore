@@ -1,0 +1,55 @@
+# ------------------------
+# 운영체제/에디터 관련
+# ------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# ------------------------
+# 에디터/IDE 관련
+# ------------------------
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains (PyCharm, CLion 등)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# ------------------------
+# 언어별 임시 파일
+# ------------------------
+# C++
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.so
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.env
+
+# ------------------------
+# 문서/기타
+# ------------------------
+*.log
+*.tmp
