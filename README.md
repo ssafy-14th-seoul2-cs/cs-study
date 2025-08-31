@@ -40,13 +40,13 @@
 
     ```
     aeongseo/
-    ├─ ComputerArchitecture/
+    ├─ CA/
     │ ├─ 폰 노이만 구조.md
     │ └─ CPU & 레지스터.md
-    ├─ OperatingSystem/
+    ├─ OS/
     │ ├─ 프로세스 개념 & 상태 전이.md
     │ └─ 프로세스 vs 스레드.md
-    └─ Network/
+    └─ NW/
     ```
     </details>
 
