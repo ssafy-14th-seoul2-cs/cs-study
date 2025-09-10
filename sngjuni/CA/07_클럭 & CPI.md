@@ -9,12 +9,11 @@
   - 클럭 1번이 걸리는 시간
   - 단위 : ns (나노초)
 - 클럭 속도 (Clock Rate, f)
+
   - 1초 동안 발생하는 클럭 주기의 횟수
   - 단위 : Hz (보통 GHz 사용)
-  - 관계식
-    $$
-    f = \frac{1}{T}
-    $$
+  - 관계식 :
+    $f = \frac{1}{T}$
 
 ## CPI (Cycles Per Instruction)
 
@@ -40,10 +39,8 @@ $$
 - 클럭 속도 : 2 GHz (클럭 주기 = 0.5ns)
 - 명령어 수 : 10억 개 (1 × 10^9)
 - CPI : 2
-- 실행 시간
-  $$
-  \text{CPU Time} = \frac{10^9 \times 2}{2 \times 10^9} = 1 \ \text{초}
-  $$
+- 실행 시간 :
+  $\text{CPU Time} = \frac{10^9 \times 2}{2 \times 10^9} = 1 \ \text{초}$
 
 ## 관련 면접 질문
 
