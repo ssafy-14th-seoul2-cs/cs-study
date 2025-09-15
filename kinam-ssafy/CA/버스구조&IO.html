@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>컴퓨터 버스 구조와 I/O 시스템</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #ffd700;
+        }
+
+        h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #87ceeb;
+        }
+
+        p {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .city-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            margin: 2rem 0;
+        }
+
+        .building {
+            background: linear-gradient(to bottom, #4a90e2, #357abd);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 1rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .building:hover {
+            transform: translateY(-10px);
+        }
+
+        .building-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .bus-types {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin: 2rem 0;
+        }
+
+        .bus-type {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .bus-type:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+
+        .comparison-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin: 2rem 0;
+        }
+
+        .vs-box {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1rem;
+            flex: 1;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+            position: relative;
+        }
+
+        .old-tech {
+            border-color: #ff6b6b;
+            background: linear-gradient(135deg, rgba(255,107,107,0.3), rgba(255,107,107,0.1));
+        }
+
+        .new-tech {
+            border-color: #51cf66;
+            background: linear-gradient(135deg, rgba(81,207,102,0.3), rgba(81,207,102,0.1));
+        }
+
+        .performance-chart {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .bar-container {
+            display: flex;
+            align-items: end;
+            justify-content: space-around;
+            height: 300px;
+            margin: 2rem 0;
+        }
+
+        .bar {
+            background: linear-gradient(to top, #ff6b6b, #ffd93d);
+            border-radius: 10px 10px 0 0;
+            width: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            align-items: center;
+            color: #333;
+            font-weight: bold;
+            transition: all 0.8s ease;
+            cursor: pointer;
+        }
+
+        .bar:hover {
+            filter: brightness(1.2);
+            transform: scale(1.1);
+        }
+
+        .bar-label {
+            color: white;
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            backdrop-filter: blur(10px);
+            font-size: 1.2rem;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+
+        .icon-large {
+            font-size: 6rem;
+            margin: 1rem;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .road-animation {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ffd700 0%, #ffd700 25%, transparent 25%, transparent 75%, #ffd700 75%);
+            background-size: 40px 4px;
+            animation: roadMove 2s linear infinite;
+            margin: 1rem 0;
+        }
+
+        @keyframes roadMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 0; }
+        }
+
+        .emoji {
+            font-size: 2rem;
+            margin: 0 0.5rem;
+        }
+
+        .speed-comparison {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .speed-item {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            margin: 0 1rem;
+            flex: 1;
+        }
+
+        .arrow {
+            font-size: 3rem;
+            color: #ffd700;
+            margin: 0 1rem;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .list-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-left: 4px solid #ffd700;
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.5rem; }
+            p { font-size: 1.2rem; }
+            
+            .city-container,
+            .bus-types,
+            .comparison-container {
+                flex-direction: column;
+            }
+            
+            .building,
+            .bus-type,
+            .vs-box {
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">9</span>
+        </div>
+
+        <!-- 슬라이드 1: 제목 -->
+        <div class="slide active">
+            <h1 class="fade-in">🏙️ 컴퓨터 버스 구조와<br>I/O 시스템</h1>
+            <p class="fade-in" style="font-size: 2rem; margin-top: 2rem; color: #ffd700;">
+                컴퓨터 내부의 숨겨진 교통망을 탐험해보자!
+            </p>
+            <div class="icon-large pulse">🚌💻</div>
+        </div>
+
+        <!-- 슬라이드 2: 컴퓨터 = 도시 -->
+        <div class="slide">
+            <h2>🏙️ 컴퓨터 = 잘 설계된 도시</h2>
+            <div class="city-container">
+                <div class="building fade-in" style="animation-delay: 0.2s;">
+                    <div class="building-icon">🏛️</div>
+                    <h3>CPU</h3>
+                    <p>시청<br>(모든 것을 관리)</p>
+                </div>
+                <div class="building fade-in" style="animation-delay: 0.4s;">
+                    <div class="building-icon">📚</div>
+                    <h3>메모리</h3>
+                    <p>도서관<br>(정보 저장)</p>
+                </div>
+                <div class="building fade-in" style="animation-delay: 0.6s;">
+                    <div class="building-icon">🏢</div>
+                    <h3>I/O 장치</h3>
+                    <p>다양한 건물들<br>(키보드, 모니터 등)</p>
+                </div>
+            </div>
+            <div class="road-animation"></div>
+            <h3 class="highlight">버스 = 교통망 (모든 것을 연결하는 도로)</h3>
+        </div>
+
+        <!-- 슬라이드 3: 버스란 무엇인가 -->
+        <div class="slide">
+            <h2>🛣️ 버스란 무엇인가?</h2>
+            <div class="fade-in">
+                <p style="font-size: 2.5rem; color: #ffd700; margin: 2rem 0;">
+                    컴퓨터 내부 구성요소들이<br>서로 <span class="highlight">대화</span>하는 통로
+                </p>
+            </div>
+            <div class="speed-comparison fade-in" style="animation-delay: 0.5s;">
+                <div class="speed-item">
+                    <div class="emoji">💻</div>
+                    <p>CPU</p>
+                </div>
+                <div class="arrow">➡️</div>
+                <div class="speed-item pulse">
+                    <div class="emoji">🚌</div>
+                    <p><strong>버스</strong></p>
+                </div>
+                <div class="arrow">➡️</div>
+                <div class="speed-item">
+                    <div class="emoji">💾</div>
+                    <p>메모리</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 4: 3가지 버스 종류 -->
+        <div class="slide">
+            <h2>🚦 3가지 전용 고속도로 시스템</h2>
+            <div class="bus-types">
+                <div class="bus-type fade-in" style="animation-delay: 0.2s;">
+                    <h3>📦 데이터 버스</h3>
+                    <p><strong>"화물 운반 고속도로"</strong></p>
+                    <div class="list-item">실제 정보 운반</div>
+                    <div class="list-item">양방향 🔄</div>
+                    <div class="list-item">폭이 중요!<br>64비트 = 64차선</div>
+                </div>
+                <div class="bus-type fade-in" style="animation-delay: 0.4s;">
+                    <h3>📍 주소 버스</h3>
+                    <p><strong>"GPS 네비게이션"</strong></p>
+                    <div class="list-item">목적지 주소 전달</div>
+                    <div class="list-item">단방향 ➡️</div>
+                    <div class="list-item">64비트 = <br>18엑사바이트 주소</div>
+                </div>
+                <div class="bus-type fade-in" style="animation-delay: 0.6s;">
+                    <h3>🚦 제어 버스</h3>
+                    <p><strong>"교통 관제소"</strong></p>
+                    <div class="list-item">타이밍 조절</div>
+                    <div class="list-item">양방향 🔄</div>
+                    <div class="list-item">클럭, 리셋,<br>인터럽트 신호</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 5: 병렬 vs 직렬 개념 -->
+        <div class="slide">
+            <h2>🚗 도로의 대혁명: 병렬 vs 직렬</h2>
+            <div class="comparison-container">
+                <div class="vs-box old-tech fade-in">
+                    <h3>❌ 병렬 버스 (구시대)</h3>
+                    <p><strong>"넓은 고속도로"</strong></p>
+                    <div class="emoji">🛣️🛣️🛣️🛣️</div>
+                    <div class="list-item">여러 차선 동시 사용</div>
+                    <div class="list-item">32개 전선 = 32비트 동시</div>
+                    <div class="list-item">❌ 신호 간섭</div>
+                    <div class="list-item">❌ 동기화 지옥</div>
+                    <div class="list-item">❌ 속도 한계</div>
+                </div>
+                <div class="vs-box new-tech fade-in" style="animation-delay: 0.3s;">
+                    <h3>✅ 직렬 버스 (현재)</h3>
+                    <p><strong>"초고속 급행열차"</strong></p>
+                    <div class="emoji">🚄💨</div>
+                    <div class="list-item">1비트씩, 하지만 극초고속</div>
+                    <div class="list-item">25GHz+ 동작 가능</div>
+                    <div class="list-item">✅ 간섭 최소화</div>
+                    <div class="list-item">✅ 안정적 전송</div>
+                    <div class="list-item">✅ 긴 거리 OK</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 6: 성능 비교 -->
+        <div class="slide">
+            <h2>🏆 실제 성능 비교: 혁명적 차이</h2>
+            <div class="performance-chart fade-in">
+                <div class="bar-container">
+                    <div class="speed-item">
+                        <div class="bar" style="height: 20px;" data-speed="533">533</div>
+                        <div class="bar-label">PCI<br>(병렬)</div>
+                    </div>
+                    <div class="speed-item">
+                        <div class="bar" style="height: 60px;" data-speed="4000">4K</div>
+                        <div class="bar-label">PCIe 1.0<br>(직렬)</div>
+                    </div>
+                    <div class="speed-item">
+                        <div class="bar" style="height: 200px;" data-speed="32000">32K</div>
+                        <div class="bar-label">PCIe 4.0<br>(직렬)</div>
+                    </div>
+                    <div class="speed-item">
+                        <div class="bar" style="height: 300px;" data-speed="64000">64K</div>
+                        <div class="bar-label">PCIe 5.0<br>(직렬)</div>
+                    </div>
+                </div>
+                <p style="color: #ffd700; font-size: 1.8rem;">
+                    <span class="highlight">120배</span> 성능 향상! (MB/s)
+                </p>
+            </div>
+        </div>
+
+        <!-- 슬라이드 7: 실생활 예시 -->
+        <div class="slide">
+            <h2>🎮 실생활에서 느끼는 차이</h2>
+            <div class="speed-comparison">
+                <div class="speed-item fade-in">
+                    <div class="emoji">🎮</div>
+                    <h3>게임 로딩</h3>
+                    <div class="list-item">SATA SSD: 30초 ⏳</div>
+                    <div class="list-item">NVMe SSD: 3초 ⚡</div>
+                </div>
+                <div class="speed-item fade-in" style="animation-delay: 0.2s;">
+                    <div class="emoji">🎬</div>
+                    <h3>비디오 편집</h3>
+                    <div class="list-item">SATA: 4K 끊김 😰</div>
+                    <div class="list-item">NVMe: 실시간 ✨</div>
+                </div>
+                <div class="speed-item fade-in" style="animation-delay: 0.4s;">
+                    <div class="emoji">📱</div>
+                    <h3>USB 연결</h3>
+                    <div class="list-item">"그냥 꽂으면 됨"</div>
+                    <div class="list-item">내부: 5단계 복잡한 협상</div>
+                </div>
+            </div>
+            <div class="road-animation"></div>
+            <p class="highlight" style="font-size: 2rem;">
+                PlayStation 5: 5.5GB/s로 SSD가 RAM처럼! 🚀
+            </p>
+        </div>
+
+        <!-- 슬라이드 8: 미래 기술 -->
+        <div class="slide">
+            <h2>🔮 미래 기술과 발전</h2>
+            <div class="bus-types">
+                <div class="bus-type fade-in">
+                    <h3>🚀 PCIe 진화</h3>
+                    <div class="list-item">3년마다 속도 2배 증가</div>
+                    <div class="list-item">PCIe 7.0: 512GB/s 목표</div>
+                    <div class="list-item">하위 호환성 완벽 유지</div>
+                </div>
+                <div class="bus-type fade-in" style="animation-delay: 0.2s;">
+                    <h3>⚡ CXL 기술</h3>
+                    <div class="list-item">CPU-메모리 새로운 고속도로</div>
+                    <div class="list-item">128GB/s 대역폭</div>
+                    <div class="list-item">21ns 초저지연</div>
+                </div>
+                <div class="bus-type fade-in" style="animation-delay: 0.4s;">
+                    <h3>🔬 UCIe</h3>
+                    <div class="list-item">칩 내부 미래형 연결</div>
+                    <div class="list-item">1.35TB/s/mm² 밀도</div>
+                    <div class="list-item">PCIe 대비 20배 효율</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 9: 결론 -->
+        <div class="slide">
+            <h2>🎯 결론</h2>
+            <div class="fade-in">
+                <p style="font-size: 2.5rem; margin: 2rem 0;">
+                    버스 시스템 = 컴퓨터가 단순한 계산기에서<br>
+                    현재의 <span class="highlight">만능 도구</span>로 발전할 수 있게 한
+                </p>
+                <h1 class="pulse" style="color: #ffd700;">숨겨진 영웅 🦸‍♂️</h1>
+            </div>
+            
+            <div class="speed-comparison fade-in" style="animation-delay: 0.5s;">
+                <div class="speed-item">
+                    <div class="emoji">🚀</div>
+                    <p><strong>성능</strong><br>올바른 선택으로<br>10배+ 차이</p>
+                </div>
+                <div class="speed-item">
+                    <div class="emoji">✨</div>
+                    <p><strong>편의성</strong><br>"그냥 작동"하는<br>마법 같은 경험</p>
+                </div>
+                <div class="speed-item">
+                    <div class="emoji">🔧</div>
+                    <p><strong>발전성</strong><br>표준화로<br>새 기술 쉽게 도입</p>
+                </div>
+                <div class="speed-item">
+                    <div class="emoji">🛡️</div>
+                    <p><strong>안정성</strong><br>정교한 제어로<br>데이터 안전 보장</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="prevSlide()">◀ 이전</button>
+            <button class="nav-btn" onclick="nextSlide()">다음 ▶</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            document.getElementById('currentSlide').textContent = index + 1;
+            
+            // 바 차트 애니메이션
+            if (index === 5) { // 성능 비교 슬라이드
+                setTimeout(() => {
+                    const bars = document.querySelectorAll('.bar');
+                    bars.forEach((bar, i) => {
+                        setTimeout(() => {
+                            bar.style.transform = 'scale(1)';
+                            bar.style.opacity = '1';
+                        }, i * 200);
+                    });
+                }, 500);
+            }
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        // 키보드 이벤트
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // 클릭 이벤트
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.navigation') && !e.target.closest('.building') && !e.target.closest('.bus-type')) {
+                nextSlide();
+            }
+        });
+
+        // 건물 클릭 효과
+        document.querySelectorAll('.building').forEach(building => {
+            building.addEventListener('click', (e) => {
+                e.stopPropagation();
+                building.style.transform = 'scale(1.1) rotate(5deg)';
+                setTimeout(() => {
+                    building.style.transform = 'scale(1) rotate(0deg)';
+                }, 300);
+            });
+        });
+
+        // 바 차트 클릭 효과
+        document.querySelectorAll('.bar').forEach(bar => {
+            bar.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const speed = bar.dataset.speed;
+                alert(`성능: ${speed} MB/s`);
+            });
+        });
+
+        // 초기 설정
+        showSlide(0);
+    </script>
+</body>
+</html>
