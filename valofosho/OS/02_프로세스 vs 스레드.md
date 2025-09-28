@@ -6,7 +6,7 @@
 - 다른 프로세스와 자원을 공유하지 않음 → 안정적이지만 통신이 복잡  
 
 ---
-<img width="535" height="265" alt="Process_vs_thread1" src="./images/Process_vs_thread1.png" /><br/>
+<img width="535" height="265" alt="Process_vs_thread1" src="./images/process_vs_thread1.png" /><br/>
 
 ## 스레드(Thread)
 - 프로세스 내 실행 흐름의 단위  
@@ -24,14 +24,14 @@
 
 ## 멀티프로세스 vs 멀티스레드
 
-<img width="535" height="265" alt="Process_vs_thread3" src="./images/Process_vs_thread3.png" /><br/>
+<img width="535" height="265" alt="Process_vs_thread3" src="./images/process_vs_thread3.png" /><br/>
 
 ### 멀티프로세스 (Multi-Processing)
 - 장점: 안정성 높음 (한 프로세스 오류가 다른 프로세스에 영향 X)  
 - 단점: IPC(프로세스 간 통신) 오버헤드 큼, Context Switching 비용 큼  
 
 ### 멀티스레드 (Multi-Threading)
-<img width="535" height="265" alt="Process_vs_thread2" src="./images/Process_vs_thread2.png" /><br/>
+<img width="535" height="265" alt="Process_vs_thread2" src="./images/process_vs_thread2.jpeg" /><br/>
 
 - 장점: 자원 공유로 빠른 통신, 생성/종료 비용 낮음  
 - 단점: 동기화 필요, 한 스레드 오류가 프로세스 전체에 영향  
