@@ -13,8 +13,8 @@
 |---|---|---|---|
 |김기남|[@kinam-ssafy](https://github.com/kinam-ssafy)|신유정|[@miayujeong](https://github.com/miayujeong)|
 |김동현|[@valofosho](https://github.com/valofosho)|양대천|[@bigskyyang](https://github.com/bigskyyang)|
-|박찬석|[@ckstjrl](https://github.com/ckstjrl)|오지수|[@ohjisu320](https://github.com/ojisu320)|
 |서예영|[@aeongseo](https://github.com/aeongseo)|황승준|[@sngjuni](https://github.com/sngjuni)|
+|박찬석|[@ckstjrl](https://github.com/ckstjrl)|오지수|[@ohjisu320](https://github.com/ohjisu320)|
 
 <br>
 
@@ -70,14 +70,16 @@
 | 주차 | 과목 | 월 | 화 | 수 | 목 | 금 |
 |------|------|-----|-----|-----|-----|-----|
 | 5 | 운영체제 ||| 입출력 시스템<br>& 디스크 스케줄링 | 시스템 콜<br>& OS 구조 | IPC<br>& 가상화/보안 |
-| 6 | 네트워크 | OSI 7계층<br>& TCP/IP | 데이터링크 계층 | IP 주소 체계 | 라우팅 | TCP vs UDP |
-| 7 | 네트워크 | 3-Way/4-Way<br>핸드셰이크 | 흐름 제어<br>& 혼잡 제어 | NAT, VPN,<br>방화벽 | DNS & DHCP | HTTP / HTTPS |
-| 8 | 네트워크 + DB | 로드밸런싱<br>& CDN | REST API | 데이터 모델<br>& 스키마 | 관계형 DB 기본 | 트랜잭션<br>& ACID |
-| 9 | DB | 트랜잭션<br>격리 수준 | 인덱스 | 조인 알고리즘 | 정규화<br>& 반정규화 | DB Lock<br>& 동시성 제어 |
+| 6 |추석 연휴||||||
+| 7 | 네트워크 | OSI 7계층<br>& TCP/IP | 데이터링크 계층 | IP 주소 체계 | 라우팅 | TCP vs UDP |
+| 8 | 네트워크 | 3-Way/4-Way<br>핸드셰이크 | 흐름 제어<br>& 혼잡 제어 | NAT, VPN,<br>방화벽 | DNS & DHCP | HTTP / HTTPS |
+| 9 | 네트워크 + DB | 로드밸런싱<br>& CDN | REST API | 데이터 모델<br>& 스키마 | 관계형 DB 기본 | 트랜잭션<br>& ACID |
+
 
 ## 🍂 11월
 
 | 주차 | 과목 | 월 | 화 | 수 | 목 | 금 |
 |------|------|-----|-----|-----|-----|-----|
-| 10 | DB + 디자인패턴 | 분산 DB | NoSQL | 싱글톤<br>& 팩토리 | 전략<br>& 템플릿 메서드 | 옵저버<br>& 퍼블리셔<br>-서브스크라이버 |
-| 11 | 디자인패턴 | 어댑터, <br>데코레이터<br>& 프록시 | 빌더<br>& 커맨드
+| 10 | DB | 트랜잭션<br>격리 수준 | 인덱스 | 조인 알고리즘 | 정규화<br>& 반정규화 | DB Lock<br>& 동시성 제어 |
+| 11 | DB + 디자인패턴 | 분산 DB | NoSQL | 싱글톤<br>& 팩토리 | 전략<br>& 템플릿 메서드 | 옵저버<br>& 퍼블리셔<br>-서브스크라이버 |
+| 12 | 디자인패턴 | 어댑터, <br>데코레이터<br>& 프록시 | 빌더<br>& 커맨드
