@@ -9,7 +9,7 @@
 - 가장 단순한 IPC 방법으로, 한 프로세스의 출력이 다른 프로세스의 입력이 됨.
 - 기본적으로 **단방향 통신**만 지원.
 - 주로 **부모-자식 프로세스 간 통신**에 사용되며, 쉘에서 `ls | grep txt` 같은 파이프라인이 대표적 예시.
-- 확장: **FIFO(named pipe)**는 이름을 가진 특별한 파일을 통해 **서로 무관한 프로세스** 간에도 통신 가능.
+- 확장: **FIFO(named pipe)** 는 이름을 가진 특별한 파일을 통해 **서로 무관한 프로세스** 간에도 통신 가능.
 
 ```c
 // Anonymous Pipe
@@ -24,7 +24,7 @@ mkfifo(), open(), read(), write()
 
 - 운영체제가 메시지를 큐 형태로 관리하며 프로세스들이 메시지를 송수신.
 - 파이프보다 유연하며, **비동기 통신**이 가능(보내는 프로세스가 받는 프로세스를 기다릴 필요 없음).
-- 메시지에 **우선순위(priority)**를 부여할 수 있어 특정 순서로 처리 가능.
+- 메시지에 **우선순위(priority)** 를 부여할 수 있어 특정 순서로 처리 가능.
 - 단점: 커널 공간의 큐 크기에 제한이 있어 대용량 데이터에는 부적합.
 
 ```c
@@ -127,16 +127,16 @@ socket(), bind(), listen(), accept(), connect(), send(), recv()
 - 주요 기법
   1. **접근 제어 (Access Control)**
      - 사용자별 접근 권한을 제한하여 자원 보호 (`rwx`, ACL, 사용자 그룹 권한 등).
-     - _예:_ 리눅스의 `chmod`, `chown`, 윈도우의 NTFS ACL.
+     - ex) 리눅스의 `chmod`, `chown`, 윈도우의 NTFS ACL.
   2. **격리 (Isolation)**
      - 프로세스·가상머신·컨테이너 간 메모리와 파일 시스템을 분리하여 침입 확산 방지.
-     - _예:_ VM 간 격리, Docker namespace, chroot jail.
+     - ex) VM 간 격리, Docker namespace, chroot jail.
   3. **암호화 (Encryption)**
      - 저장 데이터와 통신 데이터에 암호화를 적용하여 정보 유출 방지.
-     - _예:_ 파일 암호화(EFS), 네트워크 암호화(TLS/SSL).
+     - ex) 파일 암호화(EFS), 네트워크 암호화(TLS/SSL).
   4. **감사 / 로그 (Auditing & Logging)**
      - 시스템 활동을 기록하고 분석해 **이상 행위 탐지** 및 **사후 추적** 가능.
-     - _예:_ Linux `auditd`, Windows Event Log.
+     - ex) Linux `auditd`, Windows Event Log.
 
 ## 관련 면접 질문
 
