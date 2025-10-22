@@ -44,3 +44,7 @@
 | L3 전송 (Transport) | 전송 | 통신 노드 간 데이터 전송 및 흐름에 있어 신뢰성 보장 (End-to-End의 신뢰성 확보) <br> TCP : 연결 지향형 프로토콜, 패킷에 오류 하나라도 있으면 에러 복구 <br> UDP : 패킷 잃거나 오류 발생해도 계속 데이터 전송 | 세그먼트 (Segment) | Port | TCP, UDP |
 | L2 인터넷 (Internet) | 네트워크 | 네트워크 상에서 데이터 전송 담당 <br> 서로 다른 네트워크 간 통신 <br> 라우터가 내부 라우팅 테이블(Rouing Table) 통해 경로 정보 등록, 데이터 전송 위한 최적의 경로 탐색 → End-to-End 통신 | 패킷 (packet) | IP | IP, ARP, ICMP, RARP |
 | L1 네트워크 액세스 (Network Access) | 데이터링크 + 물리 | 물리적인 데이터의 전송 담당 <br> 같은 네트워크 안에서 데이터 전송 <br> 기본적인 에러 검출, 패킷의 Frame화 담당 | 프레임 (Frame) | MAC | Ethernet, Wi-Fi, MAC |
+
+<br>
+
+<img src="images/osi7_tcp_ip4.png">
