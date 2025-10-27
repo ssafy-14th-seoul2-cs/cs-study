@@ -21,7 +21,7 @@
 | --- | --- | --- | --- |
 | L7 응용 (Application) | 응용 프로세스와 직접 관계하여 일반적인 응용 서비스(프로세스 사이 전환) 수행 <br> ex. 가상 터미널, 인터넷, 전자메일, 동영상 플레이어 등 | 데이터 (Data) | HTTP, FTP, SMTP |
 | L6 표현 (Presentation) | 데이터 표현 방식 결정 <br> 데이터 형식 변환, 암호화, 압축 |  | JPEG, MPEG, SSL/TLS |
-| L5 세션 (Session) | - 응용 프로그램의 논리적인 연결(세션) 생섬 및 제어 담당 | 데이터 (Data) / 메세지 (Message) |  |
+| L5 세션 (Session) | 응용 프로그램의 논리적인 연결(세션) 생섬 및 제어 담당 | 데이터 (Data) / 메세지 (Message) |  |
 | L4 전송 (Transport) | 종단간(End-to-End) 통신 <br> 신뢰성 보장 <br> 포트 번호 이용 <br> 시퀀스 넘버 기반 방식 <br> TCP : 연결 지향형 프로토콜, 패킷에 오류 하나라도 있으면 에러 복구 <br> UDP : 패킷 잃거나 오류 발생해도 계속 데이터 전송 | 세그먼트 (Segment) | TCP, UDP |
 | L3 네트워크 (Network) | 종단간 전송 위한 경로 설정 <br> 라우팅, 흐름 제어, 세그멘테이션, 오류 제어 등 수행 | 패킷 (Packet) | IP, ARP,  Router |
 | L2 데이터 링크 (DataLink) | MAC 주소 기반 데이터 전달 <br> 오류 검출, 흐름 제어 | 프레임 (Frame) | Ethernet, Bridge, Switch |
@@ -44,3 +44,7 @@
 | L3 전송 (Transport) | 전송 | 통신 노드 간 데이터 전송 및 흐름에 있어 신뢰성 보장 (End-to-End의 신뢰성 확보) <br> TCP : 연결 지향형 프로토콜, 패킷에 오류 하나라도 있으면 에러 복구 <br> UDP : 패킷 잃거나 오류 발생해도 계속 데이터 전송 | 세그먼트 (Segment) | Port | TCP, UDP |
 | L2 인터넷 (Internet) | 네트워크 | 네트워크 상에서 데이터 전송 담당 <br> 서로 다른 네트워크 간 통신 <br> 라우터가 내부 라우팅 테이블(Rouing Table) 통해 경로 정보 등록, 데이터 전송 위한 최적의 경로 탐색 → End-to-End 통신 | 패킷 (packet) | IP | IP, ARP, ICMP, RARP |
 | L1 네트워크 액세스 (Network Access) | 데이터링크 + 물리 | 물리적인 데이터의 전송 담당 <br> 같은 네트워크 안에서 데이터 전송 <br> 기본적인 에러 검출, 패킷의 Frame화 담당 | 프레임 (Frame) | MAC | Ethernet, Wi-Fi, MAC |
+
+<br>
+
+<img src="images/osi7_tcp_ip4.png">
