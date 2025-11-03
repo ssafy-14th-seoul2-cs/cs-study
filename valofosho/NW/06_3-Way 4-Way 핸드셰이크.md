@@ -10,7 +10,7 @@
 
 > **송신자(Client)** 와 **수신자(Server)** 가 서로 연결을 맺기 위해  
 > **SYN(연결 요청)** 과 **ACK(응답 확인)** 플래그를 주고받는 과정
-
+![img1](./images/3way-handshake.jpeg)
 ```
 
 [Client]                                        [Server]
@@ -51,7 +51,7 @@
 
 > TCP 연결 종료는 데이터 송수신을 양방향으로 모두 닫아야 하므로  
 > 4단계(4-Way) 절차로 진행된다.
-
+![img2](./images/4way-handshake.jpeg)
 ```
 
 [Client]                                        [Server]
