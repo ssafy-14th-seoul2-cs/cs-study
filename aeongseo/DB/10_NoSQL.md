@@ -46,6 +46,11 @@
 | **Column Family Store** | 행 대신 컬럼 단위 저장 | Cassandra, HBase | 빅데이터 분석에 적합 |
 | **Graph Store** | 노드-엣지 구조 | Neo4j, ArangoDB | 관계 중심(소셜 네트워크, 추천 시스템)에 적합 |
 
+- key-value store(키-값 저장소) : 가장 단순한 형태, key 하나로 value 전체를 가져오는 구조, 배열의 인덱싱처럼 빠른 조회가 목적, 데이터의 위치를 key로 바로 찾고 그 key에 저장된 value를 그대로 반환
+- document store (문서 저장소) : 데이터를 JSON 또는 BSON 형태 문서로 저장하는 방식
+- column family store (칼럼 기반 저장소) : 열 중심으로 데이터 저장하는 구조, 대규모 데이터에서 분석에 필요한 특정 컬럼만 빠르게 읽을 수 있어서 빅데이터 분석에 적합
+- graph store(그래프 저장소) : 데이터 사이 관계를 가장 중심으로 저장하는 구조, 데이터=노드, 관계 = 엣지
+
 **6. 장단점**
 
 - 장점
